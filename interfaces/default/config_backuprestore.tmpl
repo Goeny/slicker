@@ -17,6 +17,7 @@
 
 <script type="text/javascript" src="$sbRoot/js/configBackupRestore.js?$sbPID"></script>
 
+<div class="show-container">
 #if $varExists('header')
 	<h1 class="header">$header</h1>
 #else 
@@ -98,5 +99,5 @@
     jQuery('#config-components').tabs();
 //-->
 </script>
-
+</div>
 #include $os.path.join($sickbeard.PROG_DIR,"gui/slicker/interfaces/default/inc_bottom.tmpl")

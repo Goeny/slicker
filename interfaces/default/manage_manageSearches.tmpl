@@ -10,6 +10,8 @@
 #include $os.path.join($sickbeard.PROG_DIR, "gui/slicker/interfaces/default/inc_top.tmpl")
 
 <script type="text/javascript" src="$sbRoot/js/plotTooltip.js?$sbPID"></script>
+
+<div class="show-container">
 <div id="content800">
    #if $varExists('header') 
    	<h1 class="header">$header</h1>
@@ -53,5 +55,7 @@ Daily: <i>$queueLength['daily'] pending items</i></br>
 Manual: <i>$queueLength['manual'] pending items</i></br>
 Failed: <i>$queueLength['failed'] pending items</i></br>
 </div>
+</div>
+
 </div>
 #include $os.path.join($sickbeard.PROG_DIR, "gui/slicker/interfaces/default/inc_bottom.tmpl")

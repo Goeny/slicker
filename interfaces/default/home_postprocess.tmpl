@@ -7,6 +7,8 @@
 #set global $topmenu="home"#
 #import os.path
 #include $os.path.join($sickbeard.PROG_DIR, "gui/slicker/interfaces/default/inc_top.tmpl")
+<script>$.backstretch("../images/postprocess-bg.jpg", {fade:2000});</script>
+
 <div class="show-container">
 <div id="content800">
 #if $varExists('header')
@@ -14,7 +16,6 @@
 #else
 	<h1 class="title">$title</h1>
 #end if
-
 
 <div id="postProcess">
 	<form name="processForm" method="post" action="processEpisode" style="line-height: 40px;">
@@ -92,6 +93,5 @@
 //-->
 </script>
 </div>
-<script>$.backstretch("../images/postprocess-bg.jpg", {fade:2000});</script>
 </div>
 #include $os.path.join($sickbeard.PROG_DIR,"gui/slicker/interfaces/default/inc_bottom.tmpl")

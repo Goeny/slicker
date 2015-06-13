@@ -31,6 +31,7 @@
 </script>
 <script type="text/javascript" src="$sbRoot/js/failedDownloads.js?$sbPID"></script>
 
+<div class="show-container">
 #if $varExists('header') 
 	<h1 class="header">$header</h1>
 #else 
@@ -88,4 +89,5 @@
   </tbody>
 </table>
 
+</div>
 #include $os.path.join($sickbeard.PROG_DIR, "gui/slicker/interfaces/default/inc_bottom.tmpl")

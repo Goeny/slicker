@@ -14,6 +14,7 @@
 #import os.path
 #include $os.path.join($sickbeard.PROG_DIR, "gui/slicker/interfaces/default/inc_top.tmpl")
 
+<div class="show-container">
 
 #if $varExists('header') 
     <h1 class="header">$header</h1>
@@ -210,5 +211,6 @@ Separate words with a comma, e.g. "word1,word2,word3"<br />
 
 //-->
 </script>
+</div>
 </div>
 #include $os.path.join($sickbeard.PROG_DIR,"gui/slicker/interfaces/default/inc_bottom.tmpl")
