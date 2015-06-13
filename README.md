@@ -8,7 +8,6 @@ As base i used the Dark Slick theme and changed almost everything
 A lot has to be done before completion.
 - A lot of files need to be removed (css + js)
 - A lot of css lines in the current dark.css can be removed since those are not used anymore.
-- A lot .tmpl files need to be placed inside ```<div class="show-container"></div>``` Take a look at a file that is done (i.e: history.tmpl)
 - Tables need to be restyled. Preferably with a 80% transparant black background, no borders, a hover effect on rows and fontawesome icons with tooltip as actions.
 - And a lot more...
 
