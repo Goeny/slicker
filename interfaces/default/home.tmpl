@@ -411,16 +411,18 @@
 			<a class="btn btn-primary #if $sickbeard.HOME_LAYOUT == "simple" then "active\"" else "\""# href="$sbRoot/setHomeLayout/?layout=simple"><i class="fa fa-list"></i></a>
 			<a class="btn btn-primary #if $sickbeard.HOME_LAYOUT == "coverflow" then "active\"" else "\""# href="$sbRoot/setHomeLayout/?layout=coverflow"><i class="fa fa-random"></i></a>
 			#if $layout != 'poster':
-        		<button id="popover" type="button" class="btn btn-primary">Select Column</button>
-        		<div class="col-xs-4">
-        			<div class="input-group">
-        				<span class="input-group-addon"><i class="fa fa-search"></i></span>
-    					<input type="text" class="search form-control" type="search" data-column="2" placeholder="Search Show Name">
-    					<span class="input-group-btn">
-      						<button type="button" class="resetshows resetanime btn btn-primary"><i class="fa fa-eraser"></i></button>
-    					</span>
-    				</div>
-  				</div>
+				#if $layout != 'coverflow':
+        			<button id="popover" type="button" class="btn btn-primary">Select Column</button>
+        			<div class="col-xs-4">
+        				<div class="input-group">
+        					<span class="input-group-addon"><i class="fa fa-search"></i></span>
+    						<input type="text" class="search form-control" type="search" data-column="2" placeholder="Search Show Name">
+    						<span class="input-group-btn">
+      							<button type="button" class="resetshows resetanime btn btn-primary"><i class="fa fa-eraser"></i></button>
+    						</span>
+    					</div>
+  					</div>
+  				#end if
     		#end if
     		
     		#if $layout == 'poster':
