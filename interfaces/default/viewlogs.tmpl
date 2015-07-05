@@ -62,6 +62,9 @@ function(){
 });
 //-->
 </script>
+<script>
+	$.backstretch('$sbRoot/gui/slicker/images/error-bg.jpg', {fade:2000});
+</script>
 
 <div class="show-container">
 	<div class="row clearfix">
@@ -113,17 +116,20 @@ function(){
   			  			
   		</div>
   		
-<div class="align-left"><pre>
-#filter WebSafe
-$logLines
-#end filter
-</pre>
+		<div class="align-left">
+			<pre>
+				#filter WebSafe
+					$logLines
+				#end filter
+			</pre>
+		</div>
+		<br />
+	</div>
 </div>
-<br />
-</div>
-<script type="text/javascript" charset="utf-8">
-<!--
-window.setInterval( "location.reload(true)", 600000); // Refresh every 10 minutes
-//-->
-</script>
+	<script type="text/javascript" charset="utf-8">
+		<!--
+		window.setInterval( "location.reload(true)", 600000); // Refresh every 10 minutes
+		//-->
+	</script>
+
 #include $os.path.join($sickbeard.PROG_DIR,"gui/slicker/interfaces/default/inc_bottom.tmpl")
