@@ -3,7 +3,6 @@
 #import sickbeard.helpers
 #from sickbeard.common import *
 #from sickbeard.helpers import anon_url
-#from lib import subliminal
 #import os.path, os
 #import datetime
 #import urllib
@@ -140,11 +139,12 @@
     				#end if
 				#end if
 				<li><strong>Status:</strong> $show.status</li>
-				<li><strong>Info Language:</strong> <img src="$sbRoot/images/flags/${show.lang}.png" width="16" height="11" alt="$show.lang" title="$show.lang" /></li>
-			</ul>
+                #set $info_flag = $subtitles.fromietf($show.lang).alpha3 if $subtitles.isValidLanguage($show.lang) else 'unknown'
+                <li>Info Language:<img src="$sbRoot/images/flags/${info_flag}.png" width="16" height="11" alt="$show.lang" title="$show.lang" onError="this.onerror=null;this.src='$sbRoot/images/flags/unknown.png';"/></li>
+  			</ul>
 			<ul>
                 #if $sickbeard.USE_SUBTITLES
-                	<li>#if int($show.subtitles) == 1 then "<i class='fa fa-check-square-o'></i>" else "<i class='fa fa-square-o'></i>"# Subtitles</li>
+                	<li>#if $show.subtitles then "<i class='fa fa-check-square-o'></i>" else "<i class='fa fa-square-o'></i>"# Subtitles</li>
                 #end if
                 <li>#if $show.flatten_folders == 1 or $sickbeard.NAMING_FORCE_FOLDERS then "<i class='fa fa-check-square-o'></i>" else "<i class='fa fa-square-o'></i>"# Flat Folders</li>
 				<li>#if int($show.paused) == 1 then "<i class='fa fa-check-square-o'></i>" else "<i class='fa fa-square-o'></i>"# Paused</li>
@@ -200,7 +200,7 @@
         		#end if
 
         		#if not $sickbeard.DISPLAY_SHOW_SPECIALS and $season_special:
-            		$seasonResults.pop(-1)
+            		#$seasonResults.pop(-1)
         		#end if
         		
         		#if (len($seasonResults) > 14):
@@ -233,14 +233,14 @@
         	#if not $show.imdbid
             	#if $show.genre:
                 	#for $genre in $show.genre[1:-1].split('|')
-                    	<a href="<%= anon_url('http://trakt.tv/shows/popular/', genre.lower()) %>" class="label label-primary" target="_blank" title="View other popular $genre shows on trakt.tv."><i class="fa fa-bookmark"></i> $genre</a>
+                		<a href="<%= anon_url('http://trakt.tv/shows/popular/?genres=', genre.lower()) %>" class="label label-primary" target="_blank" title="View other popular $genre shows on trakt.tv."><i class="fa fa-bookmark"></i> $genre</a>                    	
                     #end for
                 #end if
             #end if
                     
             #if 'year' in $show.imdb_info:
             	#for $imdbgenre in $show.imdb_info['genres'].replace('Sci-Fi','Science-Fiction').split('|')
-                	<a href="<%= anon_url('http://trakt.tv/shows/popular/', imdbgenre.lower()) %>" class="label label-primary" target="_blank" title="View other popular $imdbgenre shows on trakt.tv."><i class="fa fa-bookmark"></i> $imdbgenre</a>
+            		<a href="<%= anon_url('http://trakt.tv/shows/popular/?genres=', imdbgenre.lower()) %>" class="label label-primary" target="_blank" title="View other popular $imdbgenre shows on trakt.tv."><i class="fa fa-bookmark"></i> $imdbgenre</a> 
                 #end for
             #end if
             
@@ -597,15 +597,10 @@
                 #end if
             </td>
             <td class="col-subtitles" align="center">
-            #if $epResult["subtitles"]:
-                #for $sub_lang in subliminal.language.language_list([x.strip() for x in $epResult["subtitles"].split(',') if x != ""]):
-                    #if sub_lang.alpha2 != ""
-                        <img src="$sbRoot/images/flags/${sub_lang.alpha2}.png" width="16" height="11" alt="${sub_lang}" />
-                    #else
-                        <img src="$sbRoot/images/flags/unknown.png" width="16" height="11" alt="Unknown" />
-                    #end if
-                #end for
-            #end if
+            #for $sub_lang in [$subtitles.fromietf(x) for x in $epResult["subtitles"].split(',') if $epResult["subtitles"]]:
+                #set $flag = $sub_lang.alpha3 if $hasattr($sub_lang, 'alpha3') and $sub_lang.alpha3 else $sub_lang.alpha2 if $hasattr($sub_lang, 'alpha2') and $sub_lang.alpha2 else 'unknown'
+                <img src="$sbRoot/images/flags/${flag}.png" width="16" height="11" alt="${sub_lang.name}" onError="this.onerror=null;this.src='$sbRoot/images/flags/unknown.png';" />
+            #end for
             </td>
             #set $curStatus, $curQuality = $Quality.splitCompositeStatus(int($epResult["status"]))
                 #if $curQuality != Quality.NONE:   
@@ -621,7 +616,7 @@
                         <a class="epSearch" id="#echo $str($show.indexerid)+'x'+$str(epResult["season"])+'x'+$str(epResult["episode"])#" name="#echo $str($show.indexerid)+'x'+$str(epResult["season"])+'x'+$str(epResult["episode"])#" href="searchEpisode?show=$show.indexerid&amp;season=$epResult["season"]&amp;episode=$epResult["episode"]"><i class="fa fa-search"></i></a>
                     #end if
                 #end if
-                #if $sickbeard.USE_SUBTITLES and $show.subtitles and len(set(str($epResult["subtitles"]).split(',')).intersection(set($subtitles.wantedLanguages()))) < len($subtitles.wantedLanguages()) and $epResult["location"]
+                #if $sickbeard.USE_SUBTITLES and $show.subtitles and $epResult["location"] and frozenset($subtitles.wantedLanguages()).difference($epResult["subtitles"].split(',')):
                     <a class="epSubtitlesSearch" href="searchEpisodeSubtitles?show=$show.indexerid&amp;season=$epResult["season"]&amp;episode=$epResult["episode"]"><i class="fa fa-comments"></i></a>
                 #end if
             </td>
