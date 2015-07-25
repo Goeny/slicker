@@ -5,7 +5,14 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width">
+
+		<!-- These values come from css/dark.css and css/light.css -->
+		#if $sickbeard.THEME_NAME == "dark":
+		<meta name="theme-color" content="#15528F">
+		#elif $sickbeard.THEME_NAME == "light":
+		<meta name="theme-color" content="#333333">
+		#end if
 	
 		<title>SickRage - BRANCH:[$sickbeard.BRANCH] - $title</title>
 	
@@ -190,6 +197,17 @@
                             <a href="$sbRoot/history/"><span class="left"><i class="fa fa-history"></i></span>History</a>
                         </li>
 						
+						<li id="NAVnews" class="dropdown">
+                            <a href="#manageCollapse" class="dropdown-toggle" data-toggle="collapse"><span class="left"><i class="fa fa-newspaper-o"></i></span>Manage<span class="right"><i class="fa fa-plus"></i></span></a>
+                            <ul id="manageCollapse" class="panel-collapse collapse">
+								<li>
+		                            <a href="$sbRoot/news/">News</a>
+		                        </li>
+								<li>
+		                            <a href="$sbRoot/IRC/">IRC</a>
+		                        </li>
+							</ul>
+						</li>
 						<li id="NAVmanage" class="dropdown">
                             <a href="#manageCollapse" class="dropdown-toggle" data-toggle="collapse"><span class="left"><i class="fa fa-wrench"></i></span>Manage<span class="right"><i class="fa fa-plus"></i></span></a>
                             <ul id="manageCollapse" class="panel-collapse collapse">
@@ -244,6 +262,7 @@
 							<a href="#serverCollapse" class="dropdown-toggle" data-toggle="collapse"><span class="left"><i class="fa fa-server"></i></span>Server<span class="right"><i class="fa fa-plus"></i></span></a>
 							<ul id="serverCollapse" class="panel-collapse collapse">
 								<li><a href="$sbRoot/home/updateCheck?pid=$sbPID"><span class="left"><i class="fa fa-check-square-o"></i></span>Check For Updates</a></li>
+								<li><a href="$sbRoot/changes"><i class="menu-icon-help"></i>&nbsp;Changelog</a></li>
                                 <li><a href="$sbRoot/home/restart/?pid=$sbPID" class="confirm restart"><span class="left"><i class="fa fa-refresh"></i></span>Restart</a></li>
                                 <li><a href="$sbRoot/home/shutdown/?pid=$sbPID" class="confirm shutdown"><span class="left"><i class="fa fa-power-off"></i></span>Shutdown</a></li>
                                 <li><a href="$sbRoot/logout" class="confirm logout"><span class="left"><i class="fa fa-sign-out"></i></span>Logout</a></li>

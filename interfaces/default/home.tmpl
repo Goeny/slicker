@@ -625,7 +625,7 @@ $myShowList.sort(lambda x, y: cmp(x.name, y.name))
 				<td class="show-table">
 				    #if $layout != 'simple':	
 						#if $curShow.network:
-							<span title="$curShow.network"><img class="show-network-image" src="$sbRoot/images/network/${curShow.network.replace(u"\u00C9",'e').replace(u"\u00E9",'e').lower()}.png" alt="$curShow.network" title="$curShow.network" /></span>	
+							<span title="$curShow.network"><img class="show-network-image" src="$sbRoot/showNetworkLogo/?show=$curShow.indexerid" alt="$curShow.network" title="$curShow.network" /></span>	
 						#else:
 							<span title="No Network"><img class="show-network-image" src="$sbRoot/images/network/nonetwork.png" alt="No Network" title="No Network" /></span>
 						#end if
@@ -835,7 +835,7 @@ $myShowList.sort(lambda x, y: cmp(x.name, y.name))
     #if $layout != 'simple':	
 		<td align="center">
         #if $curShow.network:
-        	<span title="$curShow.network"><img id="network" width="54" height="27" src="$sbRoot/images/network/${curShow.network.replace(u"\u00C9",'e').replace(u"\u00E9",'e').lower()}.png" alt="$curShow.network" title="$curShow.network" /></span>
+        	<span title="$curShow.network"><img id="network" width="54" height="27" src="$sbRoot/showNetworkLogo/?show=$curShow.indexerid" alt="$curShow.network" title="$curShow.network" /></span>
     	#else:
     		<span title="No Network"><img id="network" width="54" height="27" src="$sbRoot/images/network/nonetwork.png" alt="No Network" title="No Network" /></span>
 		#end if
@@ -883,9 +883,9 @@ $myShowList.sort(lambda x, y: cmp(x.name, y.name))
 	
         <td align="center">
 #if sickbeard.TRAKT_USE_ROLLING_DOWNLOAD and sickbeard.USE_TRAKT
-			<img src="$sbRoot/images/#if int($curShow.paused) == 0 then "yes16.png\" alt=\"Yes\"" else "no16.png\" alt=\"No\""# width="16" height="16" />
+			#if int($curShow.paused) == 0 then "<i class=\"fa fa-thumbs-up\"></i>" else "<i class=\"fa fa-thumbs-o-down\"></i>"#
 #else
-			<img src="$sbRoot/images/#if int($curShow.paused) == 0 and $curShow.status == "Continuing" then "yes16.png\" alt=\"Yes\"" else "no16.png\" alt=\"No\""# width="16" height="16" />
+			#if int($curShow.paused) == 0 and $curShow.status == "Continuing" then "<i class=\"fa fa-thumbs-up\"></i>" else "<i class=\"fa fa-thumbs-o-down\"></i>"#
 #end if
 		</td>
 		
@@ -893,9 +893,11 @@ $myShowList.sort(lambda x, y: cmp(x.name, y.name))
 #set $display_status = $curShow.status
 #if None is not $display_status
     #if re.search(r'(?i)(?:new|returning)\s*series', $curShow.status)
-        #set $display_status = 'Continuing'
+        #set $display_status = '<i class=\"fa fa-play\"></i>'
     #else if re.search(r'(?i)(?:nded)', $curShow.status)
-        #set $display_status = 'Ended'
+        #set $display_status = '<i class=\"fa fa-stop\"></i>'
+    #else
+    	#set $display_status = '<i class=\"fa fa-play\"></i>'
     #end if
 #end if
 
